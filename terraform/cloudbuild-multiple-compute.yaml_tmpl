@@ -1,0 +1,35 @@
+timeout: 3600s
+steps:
+- id: 'tf init - compute'
+  name: 'hashicorp/terraform:1.0.0'
+  dir: multiple/compute
+  env:
+  - "TF_IN_AUTOMATION=true"
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - | 
+    terraform init -input=false
+- id: 'tf plan - compute'
+  name: 'hashicorp/terraform:1.0.0'
+  dir: multiple/compute
+  env:
+  - "TF_IN_AUTOMATION=true"
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - | 
+    terraform plan -input=false -out terraform-vpc.tfplan
+- id: 'tf apply - compute'
+  name: 'hashicorp/terraform:1.0.0'
+  dir: multiple/compute
+  env:
+  - "TF_IN_AUTOMATION=true"
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - | 
+    terraform apply -input=false terraform-vpc.tfplan
+serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/${CLOUDBUILD_COMPUTE}@${PROJECT_ID}.iam.gserviceaccount.com'
+options:
+  logging: CLOUD_LOGGING_ONLY

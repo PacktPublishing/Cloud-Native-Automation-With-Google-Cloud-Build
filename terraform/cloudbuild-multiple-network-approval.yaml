@@ -1,0 +1,45 @@
+timeout: 3600s
+steps:
+- id: 'update variables'
+  name: 'debian'
+  dir: multiple
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+    export PROJECT_ID=${PROJECT_ID}
+    apt-get update && apt-get install -y gettext
+    envsubst < variables.tf_tmpl > variables.tf
+    envsubst < vpc/backend.tf_tmpl > vpc/backend.tf
+- id: 'tf init - vpc'
+  name: 'hashicorp/terraform:1.0.0'
+  dir: multiple/vpc
+  env:
+  - "TF_IN_AUTOMATION=true"
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - | 
+    terraform init -input=false
+- id: 'tf plan - vpc'
+  name: 'hashicorp/terraform:1.0.0'
+  dir: multiple/vpc
+  env:
+  - "TF_IN_AUTOMATION=true"
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - | 
+    terraform plan -input=false -out terraform-vpc.tfplan
+- id: 'tf apply - vpc'
+  name: 'hashicorp/terraform:1.0.0'
+  dir: multiple/vpc
+  env:
+  - "TF_IN_AUTOMATION=true"
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - | 
+    terraform apply -input=false terraform-vpc.tfplan
+options:
+  logging: CLOUD_LOGGING_ONLY

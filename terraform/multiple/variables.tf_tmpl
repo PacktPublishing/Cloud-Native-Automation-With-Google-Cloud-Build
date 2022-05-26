@@ -1,0 +1,17 @@
+variable "project_id" {  
+  description = "Unique identifer of the Google Cloud Project that is to be used"  
+  type        = string  
+  default     = "${PROJECT_ID}"  
+}
+
+variable "region" {  
+  description = "Google Cloud Region in which regional GCP resources are provisioned"  
+  type        = string  
+  default     = "us-west1"  
+}
+
+variable "zone" {  
+  description = "Google Cloud Zone in which regional GCP resources are provisioned"  
+  type        = string  
+  default     = "us-west1-a"  
+}
