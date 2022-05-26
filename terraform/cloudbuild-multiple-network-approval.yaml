@@ -2,7 +2,7 @@ timeout: 3600s
 steps:
 - id: 'update variables'
   name: 'debian'
-  dir: multiple
+  dir: terraform/multiple
   entrypoint: 'sh'
   args:
   - '-c'
@@ -13,7 +13,7 @@ steps:
     envsubst < vpc/backend.tf_tmpl > vpc/backend.tf
 - id: 'tf init - vpc'
   name: 'hashicorp/terraform:1.0.0'
-  dir: multiple/vpc
+  dir: terraform/multiple/vpc
   env:
   - "TF_IN_AUTOMATION=true"
   entrypoint: 'sh'
@@ -23,7 +23,7 @@ steps:
     terraform init -input=false
 - id: 'tf plan - vpc'
   name: 'hashicorp/terraform:1.0.0'
-  dir: multiple/vpc
+  dir: terraform/multiple/vpc
   env:
   - "TF_IN_AUTOMATION=true"
   entrypoint: 'sh'
@@ -33,7 +33,7 @@ steps:
     terraform plan -input=false -out terraform-vpc.tfplan
 - id: 'tf apply - vpc'
   name: 'hashicorp/terraform:1.0.0'
-  dir: multiple/vpc
+  dir: terraform/multiple/vpc
   env:
   - "TF_IN_AUTOMATION=true"
   entrypoint: 'sh'
