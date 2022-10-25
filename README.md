@@ -55,3 +55,7 @@ is a Senior Developer Relations Engineer at Google. Formerly a field engineer an
 
 **Kent Hua**
 is a Global Solutions Manager focused on Application Modernization. He has years of experience with customers modernizing enterprise applications focusing on both business and technical challenges on-premise and the public cloud. Over the years he has helped organizations decompose monoliths and implement microservices patterns wherever applicable into containers running on Kubernetes. While enabling these organizations, he has identified culture and the automation of processes as critical elements in their modernization journeys.
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781801816700">https://packt.link/free-ebook/9781801816700 </a> </p>
